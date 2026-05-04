@@ -1,0 +1,76 @@
+FAQ - Soporte Técnico TI
+
+Q1: Mi laptop de la empresa está muy lenta, ¿qué puedo hacer?
+A1: Sigue estos pasos en orden:
+  1. Reinicia el equipo (esto resuelve el 60% de los casos).
+  2. Verifica el espacio en disco: si hay menos de 10 GB libres, elimina archivos temporales o desinstala programas que no uses.
+  3. Deshabilita programas de inicio automático (Ctrl + Shift + Esc -> Pestaña Inicio -> deshabilitar los innecesarios).
+  4. Ejecuta un análisis con el antivirus corporativo (Windows Defender / McAfee).
+  5. Si persiste, abre un ticket en el sistema de soporte y solicita evaluación de hardware para posible actualización de RAM o SSD.
+
+Q2: No puedo conectarme a la red Wi-Fi de la empresa.
+A2: Pasos de diagnóstico:
+  1. Asegúrate de estar dentro de las instalaciones (la red es exclusiva del edificio).
+  2. Olvida la red "Empresa-Corporativo" y reconéctala introduciendo tus credenciales de dominio.
+  3. Verifica que tu dispositivo esté registrado en el sistema DHCP. Si no lo está, contacta a soporte para registro MAC.
+  4. Prueba con la red "Empresa-Guest" como alternativa temporal mientras resolvemos tu caso.
+
+Q3: Mi impresora no imprime y muestra un error de "paper jam".
+A3: Instrucciones para desatascar papel:
+  1. Apaga la impresora y desconéctala durante 30 segundos.
+  2. Abre la bandeja trasera (en modelos con acceso) o el panel frontal según corresponda.
+  3. Retira cualquier trozo de papel atascado en dirección del flujo normal NUNCA al revés.
+  4. Verifica que no haya clips, chinchetas u objetos extraños dentro.
+  5. Reconecta y enciende. Si el error persiste, abre un ticket indicando el modelo exacto de impresora.
+
+Q4: No puedo acceder a mi correo electrónico corporativo.
+A4: Soluciones comunes:
+  1. Verifica que tu contraseña no haya expirado (son válidas por 90 días). Si la olvidaste, usa https://portal.empresaxyz.com/reset-password
+  2. Prueba accediendo desde el webmail en https://webmail.empresaxyz.com
+  3. Si usas Outlook, verifica que tu perfil esté configurado correctamente (Archivo -> Agregar cuenta).
+  4. Deshabilita temporalmente extensiones del navegador si accedes por web (algunos bloquean cookies de sesión).
+
+Q5: ¿Cómo solicito acceso a un software o aplicación nueva?
+A5: Proceso de solicitud:
+  1. Ingresa al portal de TI: https://portal.empresaxyz.com/tickets
+  2. Selecciona la categoría "Solicitud de Software".
+  3. Completa el formulario con: nombre del software, justificación de uso y nombre de tu gerente para aprobación.
+  4. El tiempo de procesamiento es de 2 a 3 días hábiles.
+
+Q6: Mi pantalla se congela frecuentemente.
+A6: Diagnóstico paso a paso:
+  1. Toma una foto de la pantalla azul (BSOD) si aparece, incluye el código de error.
+  2. Verifica la temperatura del equipo con la herramienta "Monitor de Sistema". Si supera los 85°C, puede ser un problema de ventilación.
+  3. Ejecuta el diagnóstico de memoria RAM: presiona F2 al iniciar y selecciona "Diagnostics -> Memory Test".
+  4. Si no es un problema de software o temperatura, abre un ticket para cambio de equipo.
+
+Q7: ¿Cómo configuro mi firma de correo electrónico?
+A7: Pasos para configurar la firma:
+  1. Abre Outlook y ve a Archivo -> Opciones -> Correo -> Firma.
+  2. Crea una nueva firma con el formato:
+     [Tu Nombre]
+     [Tu Cargo] - [Tu Departamento]
+     Empresa XYZ | Tel: ext. XXXX
+     www.empresaxyz.com
+  3. Selecciona la firma por defecto para nuevos correos y respuestas.
+
+Q8: No puedo compartir archivos con un compañero de red interna.
+A8: Verificaciones necesarias:
+  1. Confirma que ambos equipos estén en el mismo dominio (EmpresaXYZ\Usuario).
+  2. En la carpeta a compartir, ve a Propiedades -> Compartir -> Compartir avanzado -> marca "Compartir esta carpeta".
+  3. Asigna permisos de lectura o control total según corresponda.
+  4. El compañero accede desde Explorer escribiendo: \\nombre-PC\carpeta_compartida
+
+Q9: ¿Cómo funciona el sistema de backups?
+A9: Información sobre respaldos:
+  - Backup automático diario a las 2:00 AM (archivos locales) y 4:00 AM (servidores).
+  - Retención de versiones: 30 días para archivos locales, 1 año para servidores.
+  - Para restaurar un archivo anterior: clic derecho sobre el archivo -> "Propiedades" -> "Versiones anteriores".
+  - Si necesitas recuperar datos eliminados hace más de 30 días, abre un ticket urgente a TI.
+
+Q10: Mi teléfono no sincroniza con mi correo corporativo (Microsoft Outlook Mobile).
+A10: Configuración móvil:
+  1. Descarga la app "Outlook" desde App Store o Google Play.
+  2. Abre la app e ingresa tu correo@empresaxyz.com y contraseña de dominio.
+  3. Si usas autenticación MFA, habilita el token en https://portal.empresaxyz.com/mfa-setup antes de configurar.
+  4. Verifica que tu dispositivo esté registrado en la lista de dispositivos permitidos (Admin -> Dispositivos Móviles).

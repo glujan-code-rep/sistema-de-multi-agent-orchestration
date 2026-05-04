@@ -1,0 +1,91 @@
+{
+  "test_queries": [
+    {
+      "query": "Cuántos días de vacaciones me corresponden con 4 años de antigüedad?",
+      "expected_category": "RRH",
+      "description": "Consulta sobre derechos de vacaciones por antigüedad"
+    },
+    {
+      "query": "Mi laptop está muy lenta, qué puedo hacer?",
+      "expected_category": "IT",
+      "description": "Problema técnico de lentitud en laptop"
+    },
+    {
+      "query": "Cuál es el procedimiento para solicitar reembolso de gastos de viaje?",
+      "expected_category": "FINANCE",
+      "description": "Consulta sobre reembolsos de viáticos"
+    },
+    {
+      "query": "Tengo derecho a licencia por paternidad? Cuántos días?",
+      "expected_category": "RRH",
+      "description": "Consulta sobre licencia de paternidad"
+    },
+    {
+      "query": "No puedo conectar a la VPN de la empresa, qué hago?",
+      "expected_category": "IT",
+      "description": "Problema de conexión VPN"
+    },
+    {
+      "query": "Cuál es el presupuesto de capacitación para este año?",
+      "expected_category": "RRH",
+      "description": "Consulta sobre presupuesto de capacitación"
+    },
+    {
+      "query": "Cómo solicito un aumento de presupuesto para mi departamento?",
+      "expected_category": "FINANCE",
+      "description": "Procedimiento para ajuste de presupuesto"
+    },
+    {
+      "query": "Puedo trabajar desde casa más de 2 días por semana?",
+      "expected_category": "RRH",
+      "description": "Consulta sobre política de trabajo remoto"
+    },
+    {
+      "query": "La impresora de mi piso no responde, cómo la resuelvo?",
+      "expected_category": "IT",
+      "description": "Problema con impresora en red"
+    },
+    {
+      "query": "Cuándo me pagarán el bono de desempeño?",
+      "expected_category": "RRH",
+      "description": "Consulta sobre fecha de pago de bono"
+    },
+    {
+      "query": "Qué documentos necesito para dar de alta un nuevo proveedor?",
+      "expected_category": "FINANCE",
+      "description": "Alta de proveedor en sistema"
+    },
+    {
+      "query": "Cómo puedo reportar un incidente de seguridad?",
+      "expected_category": "IT",
+      "description": "Procedimiento de reporte de incidentes"
+    },
+    {
+      "query": "Cuál es la fecha límite para solicitar vacaciones de diciembre?",
+      "expected_category": "RRH",
+      "description": "Política de solicitudes de vacaciones"
+    },
+    {
+      "query": "Cuánto tiempo tengo para liquidar un anticipo de viáticos?",
+      "expected_category": "FINANCE",
+      "description": "Liquidación de anticipo de viaje"
+    },
+    {
+      "query": "Puedo instalar software adicional en mi computadora?",
+      "expected_category": "IT",
+      "description": "Política de instalación de software"
+    }
+  ],
+  "multi_topic_queries": [
+    {
+      "query": "Tengo una duda sobre mis vacaciones y también mi laptop no funciona bien",
+      "expected_categories": ["RRH", "IT"],
+      "description": "Consulta que requiere múltiples agentes"
+    },
+    {
+      "query": "Necesito información sobre el bono anual y cómo reportar un gasto de representación",
+      "expected_categories": ["RRH", "FINANCE"],
+      "description": "Consulta de beneficios y gastos"
+    }
+  ]
+}

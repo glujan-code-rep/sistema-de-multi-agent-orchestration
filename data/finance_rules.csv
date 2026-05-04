@@ -1,0 +1,6 @@
+RuleID,Category,Description,Value,Date_Effective,Source
+FIN001,Payroll,Política de cálculo de horas extra,1.5,2024-01-01,HR Handbook
+FIN002,Benefits,Inscripción a beneficios anuales,1,2024-01-01,Benefits Portal
+FIN003,Payroll,Descuento por estado civil (matrimonio),50.00,2024-01-01,Finance Policy
+FIN004,Finance,Límite de gasto mensual para viajes corporativos,500.00,2024-01-01,Travel Policy
+FIN005,Payroll,Salario base mensual promedio (para referencia),3500.00,2024-01-01,HR Handbook

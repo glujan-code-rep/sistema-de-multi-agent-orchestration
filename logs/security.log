@@ -1,0 +1,4 @@
+[2026-05-03T00:36:01.996261] [WARNING] PROMPT_INJECTION: Hash: 8827dd2d7accda8f, Detecciones: pattern_0, pattern_3, suspicious_keywords
+[2026-05-03T00:36:01.996399] [WARNING] PROMPT_INJECTION: Hash: 04c14312a99a8774, Detecciones: pattern_2, suspicious_keywords
+[2026-05-03T00:36:01.996446] [CRITICAL] INPUT_THREAT: Tipo: xss
+[2026-05-03T00:36:01.996485] [CRITICAL] INPUT_THREAT: Tipo: sql_injection
