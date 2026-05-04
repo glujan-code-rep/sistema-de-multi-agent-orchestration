@@ -157,7 +157,7 @@ Workflow tracing completo:
 
 ### sentence-transformers vs OpenAI Embeddings
 **Elección**: sentence-transformers (`all-MiniLM-L6-v2`)
-**Justificación**: Ejecuta en CPU (evita conflictos GPU), gratuito, suficiente calidad para texto corto.
+
 
 ### Few-Shot Prompts
 **Elección**: Incluir ejemplos en cada agente
@@ -202,23 +202,6 @@ python3 main.py
 
 ```bash
 pytest tests/ -v
-```
-
-**22 tests passing**: Agentes RRH e IT, integración LangGraph, RAG, seguridad.
-
-## Flujo de Ejecución
-
-```
-1. Verificar seguridad del contenido (moderator + security)
-2. Construir bases vectoriales si no existen
-3. Inicializar LLM (detectar provider disponible)
-4. Crear agentes especializados con RAG
-5. Construir grafo LangGraph
-6. Clasificar query → routing condicional
-7. Ejecutar agentes relevantes en paralelo
-8. Consolidar respuestas
-9. Evaluar calidad (ResponseEvaluator)
-10. Trazar en Langfuse
 ```
 
 ## Métricas de Calidad
