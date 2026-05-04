@@ -19,7 +19,13 @@ from utils.llm_providers import (
     check_provider_available,
     ProviderFactory,
 )
-from utils.tracing import get_tracer, is_tracing_enabled, ResponseEvaluator
+from utils.tracing import (
+    get_tracer,
+    is_tracing_enabled,
+    get_langsmith_tracer,
+    is_langsmith_enabled,
+    ResponseEvaluator,
+)
 
 # Cargar variables de entorno (para la clave de API)
 load_dotenv()
@@ -295,6 +301,7 @@ def main():
     print(f"Contenido verificado: [OK] Seguro")
 
     # --- 5. Inicializar tracing ---
+    # Langfuse tracer
     tracer = get_tracer()
     trace_enabled = is_tracing_enabled()
 
@@ -305,6 +312,18 @@ def main():
         print("\n[Langfuse] Tracing no configurado (opcional)")
         print("   Para habilitar: export LANGFUSE_PUBLIC_KEY=pk-...")
         print("                  export LANGFUSE_SECRET_KEY=sk-...")
+
+    # LangSmith tracer (auto-tracing for LangChain)
+    langsmith_tracer = get_langsmith_tracer()
+    langsmith_enabled = is_langsmith_enabled()
+
+    if langsmith_enabled:
+        print("\n[LangSmith] Auto-tracing habilitado")
+        langsmith_tracer.start_trace(test_query, {"provider": provider_name})
+    else:
+        print("\n[LangSmith] Auto-tracing no configurado (opcional)")
+        print("   Para habilitar: export LANGCHAIN_TRACING=true")
+        print("                  export LANGSMITH_API_KEY=ls-...")
 
     # --- 5. Ejecución del Flujo de Prueba (Simulación) ---
     print("\n==============================================================")
@@ -374,8 +393,14 @@ def main():
         report = evaluator.get_quality_report(quality_scores)
         print(report)
 
-        # Finalizar trace
+        # Finalizar trace Langfuse
         tracer.end_trace(str(final_result.get("final_response", "")), success=True)
+
+    # Finalizar trace LangSmith
+    if langsmith_enabled:
+        langsmith_tracer.end_trace(
+            str(final_result.get("final_response", "")), success=True
+        )
 
 
 def _build_knowledge_bases_if_needed():

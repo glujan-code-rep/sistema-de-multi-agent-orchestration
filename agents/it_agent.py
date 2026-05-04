@@ -72,7 +72,8 @@ INSTRUCCIONES:
 - Proporciona pasos específicos y accionables (usa numeración 1., 2., 3.)
 - Sé conciso y directo
 - Responde siempre en español
-- Usa **negrita** para enfatizar teclas, programas o acciones importantes""",
+- Usa **negrita** para enfatizar teclas, programas o acciones importantes
+- Si una pregunta no es de tu área, redirige al usuario al departamento correcto (ej. RRHH, IT, etc.)""",
                 ),
                 (
                     "human",

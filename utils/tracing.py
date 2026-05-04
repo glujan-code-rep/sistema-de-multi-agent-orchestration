@@ -170,20 +170,28 @@ class ResponseEvaluator:
 
 CONSULTA: {query}
 
-RESPUESTA: {response[:500]}...
+RESPUESTA: {response[:500]}
 
-Evalúa (responde solo con números 0-1):
-relevance: X.X
-completeness: X.X
-accuracy: X.X
-reason: breve
+Evalúa en escala de 0 a 1 (donde 0 = muy malo, 1 = excelente):
+- relevance: qué tan pertinente es la respuesta a la consulta
+- completeness: qué tan completa es la información proporcionada  
+- accuracy: qué tan correcta y precisa es la información
+
+Responde en formato EXACTO:
+relevance: 0.0-1.0
+completeness: 0.0-1.0
+accuracy: 0.0-1.0
+reason: una frase corta
 """
         try:
             from langchain_core.prompts import ChatPromptTemplate
 
             prompt = ChatPromptTemplate.from_messages(
                 [
-                    ("system", "Eres un evaluador de calidad."),
+                    (
+                        "system",
+                        "Eres un evaluador de calidad preciso. Solo devuelve números entre 0 y 1.",
+                    ),
                     ("human", evaluation_prompt),
                 ]
             )
@@ -196,24 +204,35 @@ reason: breve
                 "accuracy": 0.5,
                 "reason": "",
             }
-            for line in result.content.lower().split("\n"):
-                if "relevance" in line:
-                    try:
-                        scores["relevance"] = float(line.split(":")[1].strip())
-                    except:
-                        pass
-                elif "completeness" in line:
-                    try:
-                        scores["completeness"] = float(line.split(":")[1].strip())
-                    except:
-                        pass
-                elif "accuracy" in line:
-                    try:
-                        scores["accuracy"] = float(line.split(":")[1].strip())
-                    except:
-                        pass
-                elif "reason" in line:
-                    scores["reason"] = line.split(":")[1].strip() if ":" in line else ""
+
+            content = result.content
+
+            import re
+
+            relevance_match = re.search(
+                r"relevance[:\s]*([0-9.]+)", content, re.IGNORECASE
+            )
+            completeness_match = re.search(
+                r"completeness[:\s]*([0-9.]+)", content, re.IGNORECASE
+            )
+            accuracy_match = re.search(
+                r"accuracy[:\s]*([0-9.]+)", content, re.IGNORECASE
+            )
+            reason_match = re.search(
+                r"reason[:\s]*(.+)$", content, re.IGNORECASE | re.MULTILINE
+            )
+
+            if relevance_match:
+                scores["relevance"] = max(0, min(1, float(relevance_match.group(1))))
+            if completeness_match:
+                scores["completeness"] = max(
+                    0, min(1, float(completeness_match.group(1)))
+                )
+            if accuracy_match:
+                scores["accuracy"] = max(0, min(1, float(accuracy_match.group(1))))
+            if reason_match:
+                scores["reason"] = reason_match.group(1).strip()[:100]
+
             return scores
         except Exception as e:
             return {
@@ -258,6 +277,72 @@ reason: breve
         return "\n".join(lines)
 
 
+class LangSmithTracer:
+    """Integración con LangSmith para auto-tracing de workflows LangChain."""
+
+    def __init__(self):
+        self.api_key = os.getenv("LANGSMITH_API_KEY")
+        self.project = os.getenv("LANGSMITH_PROJECT", "default")
+        self.enabled = (
+            os.getenv("LANGCHAIN_TRACING", "false").lower() == "true"
+            or os.getenv("LANGCHAIN_TRACING_V2", "false").lower() == "true"
+        )
+        self.client = None
+
+    def is_enabled(self) -> bool:
+        return self.enabled and bool(self.api_key)
+
+    def setup(self) -> bool:
+        if not self.is_enabled():
+            return False
+        try:
+            from langsmith import Client
+
+            self.client = Client()
+            print("[LangSmith] Conectado al proyecto:", self.project)
+            return True
+        except Exception as e:
+            print(f"[LangSmith] Error: {e}")
+            return False
+
+    def start_trace(self, query: str, metadata: Dict = None):
+        if self.is_enabled():
+            print(f"[LangSmith] Trace started: {query[:40]}...")
+
+    def end_trace(self, response: str = None, success: bool = True):
+        if self.is_enabled():
+            print("[LangSmith] Trace completed - revisar dashboard")
+
+    def log_generation(self, step_name: str, input_data: Any, output_data: Any):
+        if self.is_enabled():
+            print(f"[LangSmith] {step_name}: completed")
+
+    def score_response(
+        self,
+        agent: str,
+        response: str,
+        relevance: float = None,
+        completeness: float = None,
+        accuracy: float = None,
+    ):
+        if self.is_enabled() and self.client:
+            try:
+                from langsmith import Client
+
+                self.client.create_run(
+                    name=f"score_{agent}",
+                    run_type="evaluation",
+                    inputs={"agent": agent},
+                    outputs={
+                        "relevance": relevance,
+                        "completeness": completeness,
+                        "accuracy": accuracy,
+                    },
+                )
+            except Exception:
+                pass
+
+
 _tracer = None
 
 
@@ -271,6 +356,22 @@ def get_tracer() -> LangfuseTracer:
 
 def is_tracing_enabled() -> bool:
     tracer = get_tracer()
+    return tracer.is_enabled()
+
+
+_langsmith_tracer = None
+
+
+def get_langsmith_tracer() -> LangSmithTracer:
+    global _langsmith_tracer
+    if _langsmith_tracer is None:
+        _langsmith_tracer = LangSmithTracer()
+        _langsmith_tracer.setup()
+    return _langsmith_tracer
+
+
+def is_langsmith_enabled() -> bool:
+    tracer = get_langsmith_tracer()
     return tracer.is_enabled()
 
 

@@ -76,7 +76,8 @@ INSTRUCCIONES:
 FORMATO DE RESPUESTA:
 - Usa viñetas (-) para listar información
 - Destaca términos importantes en negrita (**)
-- Si es necesario, indica pasos a seguir""",
+- Si es necesario, indica pasos a seguir
+- Si una pregunta no es de tu área, redirige al usuario al departamento correcto (ej. RRHH, IT, etc.)""",
                 ),
                 (
                     "human",
